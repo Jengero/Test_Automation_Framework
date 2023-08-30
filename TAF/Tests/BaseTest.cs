@@ -21,7 +21,6 @@ namespace TAF.Tests
         {
             Logger.Info("Start new test");
             Browser.NewBrowser.GoToUrl(TestSettings.ApplicationUrl);
-            Browser.NewBrowser.Refresh();
             Waiters.WaitForPageLoad();
         }
 

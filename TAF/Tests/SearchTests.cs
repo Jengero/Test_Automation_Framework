@@ -6,7 +6,7 @@ using TAF.Web.Pages;
 namespace TAF.Tests
 {
     [TestFixture]
-    [Parallelizable(ParallelScope.All)]
+    [Parallelizable(ParallelScope.Self)]
     public class SearchTests : BaseTest
     {
         private MainPage _mainPage;
