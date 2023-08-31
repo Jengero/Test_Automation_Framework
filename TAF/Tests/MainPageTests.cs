@@ -46,7 +46,12 @@ namespace TAF.Tests
         [Test]
         public void JoinOutTeemButtonOnCareersDropDownHeaderTest()
         {
-            _actions.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
+
+            _actions.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
+
+            Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
+
+            _actions.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
             
             Assert.That(Browser.NewBrowser.Url, Is.EqualTo(_jobListingsPage.Url), "Loaded incorrect page");
         }

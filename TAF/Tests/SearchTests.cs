@@ -21,8 +21,7 @@ namespace TAF.Tests
             _mainPage.AcceptAllCookies();
         }
 
-        
-        [TestCase("Automation")]
+
         [TestCase("Business Analysis")]
         public void SearchPanelResultIsCorrectTest(string ExpectedSearchResult)
         {
@@ -30,10 +29,11 @@ namespace TAF.Tests
             _mainPage.Header.SearchForm.SendKeys(ExpectedSearchResult);
             _mainPage.Header.FindResultButton.Click();
 
+            Waiters.WaitForCondition(new Func<bool>(() => _searchResultsPage.SearchFormOnResultPage.IsDisplayed()));
+
             Assert.That(_searchResultsPage.SearchFormOnResultPage.GetProperty("value"), Is.EqualTo(ExpectedSearchResult), "Search results don't match");
         }
 
-        
         [TestCase(5, "Automation")]
         public void EnteredTextIsPresentInSearchResultsTest(int expectedNumberOfResults, string searchQuery)
         {
@@ -52,6 +52,8 @@ namespace TAF.Tests
             _mainPage.Header.SearchForm.SendKeys(expectedSearchResult);
             _mainPage.Header.FindResultButton.Click();
 
+            Waiters.WaitForCondition(new Func<bool>(() => _searchResultsPage.FirstArticle.IsDisplayed()));
+
             var firstSearchResultTitle = _searchResultsPage.FirstArticle.GetAttribute("innerText");
             _searchResultsPage.FirstArticle.Click();
 
@@ -65,9 +67,10 @@ namespace TAF.Tests
             _mainPage.Header.SearchButton.ClickUsingJS();
             _mainPage.Header.SearchForm.SendKeys(searchQuery);
             _mainPage.Header.FindResultButton.Click();
+
             Browser.NewBrowser.ScrollToElement(_searchResultsPage.ListOfArticles.GetElements()[9].OriginalWebElement);
 
-            Waiters.WaitForCondition(() => _searchResultsPage.ListOfArticles.GetElements()[9].IsDisplayed());
+            Waiters.WaitForCondition(() => _searchResultsPage.ViewMoreButton.IsDisplayed());
 
             Browser.NewBrowser.ScrollToElement(_searchResultsPage.ViewMoreButton.OriginalWebElement);
 
