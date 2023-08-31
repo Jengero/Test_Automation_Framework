@@ -32,7 +32,7 @@ namespace TAF.Tests
                 Logger.Info("Test is failed");
             }
             Logger.Info("Test finish");
-            Browser.NewBrowser.Quit();
+            Browser.NewBrowser.Close();
         }
     }
 }

@@ -6,7 +6,7 @@ using TAF.Web.Pages;
 namespace TAF.Tests
 {
     [TestFixture]
-    [Parallelizable(ParallelScope.Self)]
+    [Parallelizable(ParallelScope.All)]
     public class SearchTests : BaseTest
     {
         private MainPage _mainPage;
@@ -21,6 +21,7 @@ namespace TAF.Tests
             _mainPage.AcceptAllCookies();
         }
 
+        
         [TestCase("Automation")]
         [TestCase("Business Analysis")]
         public void SearchPanelResultIsCorrectTest(string ExpectedSearchResult)
@@ -32,6 +33,7 @@ namespace TAF.Tests
             Assert.That(_searchResultsPage.SearchFormOnResultPage.GetProperty("value"), Is.EqualTo(ExpectedSearchResult), "Search results don't match");
         }
 
+        
         [TestCase(5, "Automation")]
         public void EnteredTextIsPresentInSearchResultsTest(int expectedNumberOfResults, string searchQuery)
         {
@@ -42,6 +44,7 @@ namespace TAF.Tests
             Assert.That(_searchResultsPage.ListOfArticles.GetElements().Take(expectedNumberOfResults).All(p => p.GetProperty("textContent").ToLower().Contains(searchQuery.ToLower())), Is.True, "First five articles don't contains search query" );
         }
 
+        
         [TestCase("Business Analysis")]
         public void ArticleTitleMatchTest(string expectedSearchResult)
         {
@@ -55,6 +58,7 @@ namespace TAF.Tests
             Assert.That(firstSearchResultTitle, Is.EqualTo(_searchResultsPage.FirstSearchResultTitle.GetProperty("innerText")), "Title of the first search result don't match with title of the first article");
         }
 
+        
         [TestCase("Automation", "20")]
         public void QuantityOfSearchResultsTest(string searchQuery, string ExpectedQuantityOfArticles)
         {

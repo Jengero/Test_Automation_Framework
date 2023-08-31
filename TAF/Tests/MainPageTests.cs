@@ -25,13 +25,13 @@ namespace TAF.Tests
             _actions = new(Browser.NewBrowser.Driver);
             _mainPage.AcceptAllCookies();
         }
-
+        
         [Test]
         public void MainPageAvailabilityTest()
         {
             Assert.That(_mainPage.IsOpened(), "Main Page is unavailable");
         }
-
+        
         [Test]
         public void PageTransitionTest()
         {
@@ -42,7 +42,7 @@ namespace TAF.Tests
 
             Assert.That(Browser.NewBrowser.Url, Is.EqualTo(_careersPage.Url), "Pages don't match");
         }
-
+        
         [Test]
         public void JoinOutTeemButtonOnCareersDropDownHeaderTest()
         {
@@ -50,7 +50,7 @@ namespace TAF.Tests
             
             Assert.That(Browser.NewBrowser.Url, Is.EqualTo(_jobListingsPage.Url), "Loaded incorrect page");
         }
-
+        
         [Test]
         public void ListOfLocalizationsOnHeaderTest()
         {

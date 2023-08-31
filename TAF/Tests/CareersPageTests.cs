@@ -14,9 +14,9 @@ namespace TAF.Tests
         [SetUp]
         public void SetUp() 
         {
-            _mainPage = new MainPage();
-            _careersPage = new CareersPage();
-            _jobListingsPage = new JobListingsPage();
+            _mainPage = new();
+            _careersPage = new();
+            _jobListingsPage = new();
         }
 
         [Test]
