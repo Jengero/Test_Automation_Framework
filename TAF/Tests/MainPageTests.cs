@@ -46,6 +46,7 @@ namespace TAF.Tests
         [Test]
         public void JoinOutTeemButtonOnCareersDropDownHeaderTest()
         {
+            Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.CareersButton.IsDisplayed()));
 
             _actions.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
 
