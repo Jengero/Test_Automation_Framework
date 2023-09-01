@@ -1,0 +1,35 @@
+pipeline{
+    agent any
+parameters
+    {
+        string(defaultValue: 'Chrome', name: 'Browser')
+        string(defaultValue: 'https://www.epam.com/', name: 'ApplicationUrl')
+        string(defaultValue: '60', name: 'WebDriverTimeOut')
+        string(defaultValue: '80', name: 'WaitElementTimeOut')
+        string(defaultValue: 'Logs\\Logs.txt', name: 'LogsPath')
+    }
+    stages{
+        stage ('SetupTests')
+        {
+            steps
+            {
+               git branch: 'page_objects', changelog: false, credentialsId: '4fde80a3-ab0a-4234-bb1e-b86f3258dde2', poll: false, url: 'https://github.com/Jengero/Test_Automation_Framework.git' 
+            }
+        }
+        stage ('Build')
+        {
+             steps
+             {
+                bat 'dotnet msbuild C:\\Programs\\jenkins_home\\workspace\\TAF.Build\\TAF\\TAF.sln -t:Restore /tv:Current /t:Rebuild /p:Configuration=Release'
+             }
+        }
+        stage ('Run Tests')
+        {
+            steps
+            {                                                                                                                                                                                             
+                bat 'dotnet test  C:\\Programs\\jenkins_home\\workspace\\TAF.Build\\TAF\\Tests\\TAF.Tests.csproj -- TestRunParameters.Parameter(name=\"ApplicationUrl\", value=\"ApplicationUrl\") -- TestRunParameters.Parameter(name=\"Browser\", value=\"Browser\") -- TestRunParameters.Parameter(name=\"WebDriverTimeOut\", value=\"WebDriverTimeOut\") -- TestRunParameters.Parameter(name=\"WaitElementTimeOut\", value=\"WaitElementTimeOut\") -- TestRunParameters.Parameter(name=\"LogsPath\", value=\"LogsPath\")'
+            }
+        }
+        
+    }
+}
