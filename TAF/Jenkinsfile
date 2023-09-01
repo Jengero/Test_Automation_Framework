@@ -2,11 +2,11 @@ pipeline{
     agent any
 parameters
     {
-        string(defaultValue: 'Chrome', name: 'Browser')
-        string(defaultValue: 'https://www.epam.com/', name: 'ApplicationUrl')
-        string(defaultValue: '60', name: 'WebDriverTimeOut')
-        string(defaultValue: '80', name: 'WaitElementTimeOut')
-        string(defaultValue: 'Logs\\Logs.txt', name: 'LogsPath')
+        string(name: "ApplicationUrl", defaultValue: "https://www.epam.com/")
+	   string(name: "Browser", defaultValue: "Chrome")
+        string(name: "WebDriverTimeOut", defaultValue: "60")
+        string(name: "WaitElementTimeOut", defaultValue: "80")
+        string(name: "LogsPath", defaultValue: "Logs\\Logs.txt" )
     }
     stages{
         stage ('SetupTests')
