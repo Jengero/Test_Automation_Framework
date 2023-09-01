@@ -15,8 +15,8 @@ namespace TAF.Web.Pages
 
         public HtmlElement FirstArticle => new(By.XPath("//* [@class = 'search-results__title'][1]"));
 
-        public Label FirstSearchResultTitle => new(By.XPath("//*[@class='font-size-80-33']/*[@class = 'museo-sans-light']"));
-
+        public Label FirstSearchResultTitle => new(By.XPath("//*[contains(@class, '80')]/*[contains(@class, 'light')]"));
+        
         public Button ViewMoreButton => new(By.XPath("//span [contains (@class,  'more')]"));
     }
 }
