@@ -13,7 +13,6 @@ namespace TAF.Tests
         private CareersPage _careersPage;
         private ClientWorkPage _workPage;
         private JobListingsPage _jobListingsPage;
-        private Actions _actions;
 
         [SetUp]
         public void SetUp()
@@ -22,8 +21,6 @@ namespace TAF.Tests
             _careersPage = new();
             _workPage = new();
             _jobListingsPage = new();
-            _actions = new(Browser.NewBrowser.Driver);
-            _mainPage.AcceptAllCookies();
         }
         
         [Test]
@@ -46,13 +43,11 @@ namespace TAF.Tests
         [Test]
         public void JoinOutTeemButtonOnCareersDropDownHeaderTest()
         {
-            Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.CareersButton.IsDisplayed()));
-
-            _actions.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
+            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
 
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
 
-            _actions.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
+            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
             
             Assert.That(Browser.NewBrowser.Url, Is.EqualTo(_jobListingsPage.Url), "Loaded incorrect page");
         }

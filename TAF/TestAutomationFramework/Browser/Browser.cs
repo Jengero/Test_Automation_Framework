@@ -122,7 +122,6 @@ namespace TAF.Core.Browser
         #region Waiters
 
         public WebDriverWait Waiters() => new (_driver, TestSettings.WebDriverTimeOut);
-
         public Actions Action => new(_driver);
 
         #endregion

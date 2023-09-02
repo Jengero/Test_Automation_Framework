@@ -17,21 +17,19 @@ namespace TAF.Tests
         {
             _mainPage = new();
             _searchResultsPage = new();
-
-            _mainPage.AcceptAllCookies();
         }
 
 
         [TestCase("Business Analysis")]
-        public void SearchPanelResultIsCorrectTest(string ExpectedSearchResult)
+        public void SearchPanelResultIsCorrectTest(string expectedSearchResult)
         {
             _mainPage.Header.SearchButton.Click();
-            _mainPage.Header.SearchForm.SendKeys(ExpectedSearchResult);
+            _mainPage.Header.SearchForm.SendKeys(expectedSearchResult);
             _mainPage.Header.FindResultButton.Click();
 
             Waiters.WaitForCondition(new Func<bool>(() => _searchResultsPage.SearchFormOnResultPage.IsDisplayed()));
 
-            Assert.That(_searchResultsPage.SearchFormOnResultPage.GetProperty("value"), Is.EqualTo(ExpectedSearchResult), "Search results don't match");
+            Assert.That(_searchResultsPage.SearchFormOnResultPage.GetProperty("value"), Is.EqualTo(expectedSearchResult), "Search results don't match");
         }
 
         [TestCase(5, "Automation")]
@@ -62,7 +60,7 @@ namespace TAF.Tests
 
         
         [TestCase("Automation", "20")]
-        public void QuantityOfSearchResultsTest(string searchQuery, string ExpectedQuantityOfArticles)
+        public void QuantityOfSearchResultsTest(string searchQuery, string expectedQuantityOfArticles)
         {
             _mainPage.Header.SearchButton.ClickUsingJS();
             _mainPage.Header.SearchForm.SendKeys(searchQuery);
@@ -74,7 +72,7 @@ namespace TAF.Tests
 
             Browser.NewBrowser.ScrollToElement(_searchResultsPage.ViewMoreButton.OriginalWebElement);
 
-            Assert.That(_searchResultsPage.ListOfArticles.GetElements().Count.ToString(), Is.EqualTo(ExpectedQuantityOfArticles), "The quantity of articles is not equal");
+            Assert.That(_searchResultsPage.ListOfArticles.GetElements().Count.ToString(), Is.EqualTo(expectedQuantityOfArticles), "The quantity of articles is not equal");
         }
     }
 }

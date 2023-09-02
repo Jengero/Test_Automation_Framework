@@ -8,5 +8,7 @@ namespace TAF.Web.Pages
         public override string Url => TestSettings.ApplicationUrl;
 
         public HeaderPanel Header => new (By.XPath("//*[@class = 'header__content']"));
+
+        public CookiesPanel Cookies => new(By.Id("onetrust-banner-sdk"));
     }
 }

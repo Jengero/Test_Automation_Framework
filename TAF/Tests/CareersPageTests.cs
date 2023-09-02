@@ -9,7 +9,6 @@ namespace TAF.Tests
         private CareersPage _careersPage;
         private JobListingsPage _jobListingsPage;
         private MainPage _mainPage;
-        private const string _availableCountriesLocator = "//*[contains (@class, 'js-tabs-title')]";
 
         [SetUp]
         public void SetUp() 
@@ -24,13 +23,11 @@ namespace TAF.Tests
         {
             List<string> expectedCountries = new() { "AMERICAS", "EMEA", "APAC" };
 
-            _mainPage.AcceptAllCookies();
             _mainPage.Header.CareersButton.Click();
             _careersPage.FindYourDreamJobButton.Click();
-            Browser.NewBrowser.ScrollToElement(_jobListingsPage.thirteenthSearchResult.OriginalWebElement);
-            var actualListOfCountries = _jobListingsPage.availableLocations.FindElements(By.XPath(_availableCountriesLocator)).Select(f => f.GetDomProperty("innerText"));
-
-            CollectionAssert.AreEquivalent(expectedCountries, actualListOfCountries, "Countries are not equal");
+            Browser.NewBrowser.ScrollToElement(_jobListingsPage.ThirteenthSearchResult.OriginalWebElement);
+            
+            CollectionAssert.AreEquivalent(expectedCountries, _jobListingsPage.ListOfAvailableLocations.Select(f => f.GetProperty("innerText")), "Countries are not equal");
         }
     }
 }

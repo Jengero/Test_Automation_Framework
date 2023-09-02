@@ -7,7 +7,7 @@ namespace TAF.Web
     {
         public HeaderPanel HeaderSearchPanel => new(By.ClassName("//*[@class = 'header__content']"));
 
-        public Button SearchButton => new(By.XPath("//span [contains(@class, 'search-icon')]"));
+        public Button SearchButton => new(By.XPath("//span[contains(@class, 'search-icon')]"));
 
         public Button LanguageSelectorButton => new(By.XPath("//*[@class = 'location-selector__button']"));
 
@@ -15,7 +15,7 @@ namespace TAF.Web
 
         public Button JoinOurTeamOnCareersDropDown => new(By.XPath("//a[contains(@class, 'top') and contains(@href, 'job')]")); 
 
-        public Button FindResultButton => new(By.XPath("//span [contains (@class, 'bth')]"));
+        public Button FindResultButton => new(By.XPath("//span[contains (@class, 'bth')]"));
 
         public TextInput SearchForm => new(By.XPath("//*[@id = 'new_form_search']"));
 
