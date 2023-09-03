@@ -120,10 +120,9 @@ namespace TAF.Core.Browser
         #endregion
 
         #region Waiters
-
         public WebDriverWait Waiters() => new (_driver, TestSettings.WebDriverTimeOut);
         public Actions Action => new(_driver);
-
+        public void ImplicitWaiter(int waitInSeconds) => _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(waitInSeconds);
         #endregion
 
         public object ExecuteScript(string script, params object[] args)
