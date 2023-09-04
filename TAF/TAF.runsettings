@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+	<!-- Parameters used by tests at runtime -->
+	<TestRunParameters>
+		<Parameter name ="Browser" value="Chrome" />
+		<Parameter name ="ApplicationUrl" value="https://www.epam.com/"/>
+		<Parameter name ="WebDriverTimeOut" value="60" />
+		<Parameter name ="WaitElementTimeOut" value="80" />
+		<Parameter name ="LogsPath" value="Logs\Logs.txt" />
+		<Parameter name ="TestDataFolder" value="TestDataFiels"/>
+	</TestRunParameters>
+</RunSettings>
