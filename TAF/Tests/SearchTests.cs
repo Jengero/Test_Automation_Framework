@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using TAF.Core.Browser;
+﻿using TAF.Core.Browser;
 using TAF.Core.Elements;
 using TAF.Core.Utilities;
 using TAF.Helper;
@@ -16,7 +15,11 @@ namespace TAF.Tests
         private MainPage _mainPage;
         private SearchResultsPage _searchResultsPage;
         private JobListingsPage _jobListingsPage;
-        string defaultSearchText = "We Found 2335 Job Openings for You";
+        private const string _keywordOrJob = "\\KeywordQueryJobListingsPageTest.json";
+        private const string _location = "\\LocationFieldJobListingsPageTest.json";
+        private const string _skills = "\\SkillsFieldJobListingsPageTest.json";
+        private const string _allFields = "\\SearchQueryWithAllFieldsFilledInJobListingsPageTest.json";
+        private const string _unsuccessfulQuery = "\\UnsuccessfulSearchJobListingsPageTest.json";
 
         [SetUp]
         public void SetUp()
@@ -26,7 +29,7 @@ namespace TAF.Tests
             _jobListingsPage = new();
         }
 
-
+        [NonParallelizable]
         [TestCase("Business Analysis")]
         public void SearchPanelResultIsCorrectTest(string expectedSearchResult)
         {
@@ -39,6 +42,7 @@ namespace TAF.Tests
             Assert.That(_searchResultsPage.SearchFormOnResultPage.GetProperty("value"), Is.EqualTo(expectedSearchResult), "Search results don't match");
         }
 
+        [NonParallelizable]
         [TestCase(5, "Automation")]
         public void EnteredTextIsPresentInSearchResultsTest(int expectedNumberOfResults, string searchQuery)
         {
@@ -49,7 +53,7 @@ namespace TAF.Tests
             Assert.That(_searchResultsPage.ListOfArticles.GetElements().Take(expectedNumberOfResults).All(p => p.GetProperty("textContent").ToLower().Contains(searchQuery.ToLower())), Is.True, "First five articles don't contains search query");
         }
 
-
+        [NonParallelizable]
         [TestCase("Business Analysis")]
         public void ArticleTitleMatchTest(string expectedSearchResult)
         {
@@ -65,7 +69,7 @@ namespace TAF.Tests
             Assert.That(firstSearchResultTitle, Is.EqualTo(_searchResultsPage.FirstSearchResultTitle.GetProperty("innerText")), "Title of the first search result don't match with title of the first article");
         }
 
-
+        [NonParallelizable]
         [TestCase("Automation", "20")]
         public void QuantityOfSearchResultsTest(string searchQuery, string expectedQuantityOfArticles)
         {
@@ -87,13 +91,14 @@ namespace TAF.Tests
         public void KeywordQueryJobListingsPageTest(SearchModel searchModel)
         {
             Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
-
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
-
             Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
+
+            var defaultSearchMessage = _jobListingsPage.SearchResultQuantityMessage.GetText();
+
             _jobListingsPage.KeywordJobInput.SendKeys(searchModel.KeywordOrJobId);
             _jobListingsPage.SubmitSearchButton.Click();
-            Waiters.WaitForCondition(() => _jobListingsPage.ResultDescription.GetProperty("innerText") != defaultSearchText);
+            Waiters.WaitForCondition(() => _jobListingsPage.SearchResultQuantityMessage.GetText() != defaultSearchMessage);
 
             Assert.That(_jobListingsPage.FirstSearchResultDescription.GetText().ToLower(), Is.EqualTo(searchModel.SearchResult.ToLower()), "Descriptions of the first result don't match (keyword)");
         }
@@ -103,14 +108,15 @@ namespace TAF.Tests
         public void LocationFieldJobListingsPageTest(SearchModel searchModel)
         {
             Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
-
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
-
             Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
+
+            var defaultSearchMessage = _jobListingsPage.SearchResultQuantityMessage.GetText();
+
             _jobListingsPage.LocationsDropDownButton.Click();
             _jobListingsPage.ListOfCountries.GetElements().FirstOrDefault(f => f.GetText().Equals(searchModel.LocationCountry)).Click();
             _jobListingsPage.ListOfCities.GetElements().FirstOrDefault(f => f.GetText().Equals(searchModel.LocationCity)).Click();
-            Waiters.WaitForCondition(() => _jobListingsPage.ResultDescription.GetProperty("innerText") != defaultSearchText);
+            Waiters.WaitForCondition(() => _jobListingsPage.SearchResultQuantityMessage.GetText() != defaultSearchMessage);
 
             Assert.That(_jobListingsPage.FirstSearchResultDescription.GetText().ToLower(), Is.EqualTo(searchModel.SearchResult.ToLower()), "Descriptions of the first result don't match (location)");
         }
@@ -120,93 +126,96 @@ namespace TAF.Tests
         public void SkillsFieldJobListingsPageTest(SearchModel searchModel)
         {
             Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
-
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
-
             Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
+
+            var defaultSearchMessage = _jobListingsPage.SearchResultQuantityMessage.GetText();
+
             _jobListingsPage.SkillsDropDownButton.Click();
-            Waiters.WaitForCondition(() => _jobListingsPage.SkillsFieldUp.OriginalWebElement.Displayed);
+            Waiters.WaitForCondition(() => _jobListingsPage.SkillsField.OriginalWebElement.Displayed);
             _jobListingsPage.ListOfSkills.GetElements().FirstOrDefault(f => f.GetText().Equals(searchModel.Skills)).Click();
-            Waiters.WaitForCondition(() => _jobListingsPage.ResultDescription.GetProperty("innerText") != defaultSearchText);
+            Waiters.WaitForCondition(() => _jobListingsPage.SearchResultQuantityMessage.GetText() != defaultSearchMessage);
 
             Assert.That(_jobListingsPage.FirstSearchResultDescription.GetText().ToLower(), Is.EqualTo(searchModel.SearchResult.ToLower()), "Descriptions of the first result don't match (skills)");
         }
-
+        
         [Test]
         [TestCaseSource(nameof(GetAllFieldsData))]
         public void SearchQueryWithAllFieldsFilledInJobListingsPageTest(SearchModel searchModel )
         {
             Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
-
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
-
             Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
 
-            _jobListingsPage.KeywordJobInput.SendKeys(searchModel.KeywordOrJobId);
+            var defaultSearchMessage = _jobListingsPage.SearchResultQuantityMessage.GetText();
 
+            _jobListingsPage.KeywordJobInput.SendKeys(searchModel.KeywordOrJobId);
             _jobListingsPage.LocationsDropDownButton.Click();
             _jobListingsPage.ListOfCountries.GetElements().FirstOrDefault(f => f.GetText().Equals(searchModel.LocationCountry)).Click();
             _jobListingsPage.ListOfCities.GetElements().FirstOrDefault(f => f.GetText().Equals(searchModel.LocationCity)).Click();
             _jobListingsPage.SkillsDropDownButton.Click();
-            Waiters.WaitForCondition(() => _jobListingsPage.SkillsFieldDown.OriginalWebElement.Displayed);
+
+            Waiters.WaitForCondition(() => _jobListingsPage.SkillsField.OriginalWebElement.Displayed);
+
             _jobListingsPage.ListOfSkills.GetElements().FirstOrDefault(f => f.GetText().Equals(searchModel.Skills)).Click();
             _jobListingsPage.SubmitSearchButton.Click();
-            Waiters.WaitForCondition(() => _jobListingsPage.ResultDescription.GetProperty("innerText") != defaultSearchText);
+            Waiters.WaitForCondition(() => _jobListingsPage.SearchResultQuantityMessage.GetText() != defaultSearchMessage);
+
 
             Assert.That(_jobListingsPage.FirstSearchResultDescription.GetText().ToLower(), Is.EqualTo(searchModel.SearchResult.ToLower()), "Descriptions of the first result don't match (all fields)");
         }
-
+        
         [Test]
         [TestCaseSource(nameof(GetUnsuccessfullQueryData))]
         public void UnsuccessfulSearchJobListingsPageTest(SearchModel searchModel)
         {
             Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
-
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
-
             Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
+
+            var defaultSearchMessage = _jobListingsPage.SearchResultQuantityMessage.GetText();
 
             _jobListingsPage.KeywordJobInput.SendKeys(searchModel.KeywordOrJobId);
             _jobListingsPage.LocationsDropDownButton.Click();
             _jobListingsPage.ListOfCountries.GetElements().FirstOrDefault(f => f.GetText().Equals(searchModel.LocationCountry)).Click();
             _jobListingsPage.ListOfCities.GetElements().FirstOrDefault(f => f.GetText().Equals(searchModel.LocationCity)).Click();
             _jobListingsPage.SubmitSearchButton.Click();
-            Waiters.WaitForCondition(() => _jobListingsPage.ResultDescription.GetProperty("innerText") != defaultSearchText);
+            Waiters.WaitForCondition(() => _jobListingsPage.SearchResultQuantityMessage.GetText() != defaultSearchMessage);
 
             Assert.That(_jobListingsPage.ErrorSearchMessage.GetText().ToLower(), Is.EqualTo(searchModel.SearchResult.ToLower()), "Incorrect error message");
         }
 
         private static List<SearchModel> GetKeywordData()
         {
-            var json = File.ReadAllText(@"C:\Users\Jenger\Desktop\Mems\Test_Automation_Framework\TAF\TestData\TestDataFiles\KeywordQueryJobListingsPageTest.json");
+            var json = File.ReadAllText(TestSettings.DataDirPath + _keywordOrJob);
 
             return JsonParser.DeserializeJsonToObjects<SearchModel>(json);
         }
 
         private static List<SearchModel> GetLocationData()
         {
-            var json = File.ReadAllText(@"C:\Users\Jenger\Desktop\Mems\Test_Automation_Framework\TAF\TestData\TestDataFiles\LocationFieldJobListingsPageTest.json");
+            var json = File.ReadAllText(TestSettings.DataDirPath + _location);
 
             return JsonParser.DeserializeJsonToObjects<SearchModel>(json);
         }
 
         private static List<SearchModel> GetSkillsData()
         {
-            var json = File.ReadAllText(@"C:\Users\Jenger\Desktop\Mems\Test_Automation_Framework\TAF\TestData\TestDataFiles\SkillsFieldJobListingsPageTest.json");
+            var json = File.ReadAllText(TestSettings.DataDirPath + _skills);
 
             return JsonParser.DeserializeJsonToObjects<SearchModel>(json);
         }
 
         private static List<SearchModel> GetAllFieldsData()
         {
-            var json = File.ReadAllText(@"C:\Users\Jenger\Desktop\Mems\Test_Automation_Framework\TAF\TestData\TestDataFiles\SearchQueryWithAllFieldsFilledInJobListingsPageTest.json");
+            var json = File.ReadAllText(TestSettings.DataDirPath + _allFields);
 
             return JsonParser.DeserializeJsonToObjects<SearchModel>(json);
         }
 
         private static List<SearchModel> GetUnsuccessfullQueryData()
         {
-            var json = File.ReadAllText(@"C:\Users\Jenger\Desktop\Mems\Test_Automation_Framework\TAF\TestData\TestDataFiles\UnsuccessfulSearchJobListingsPageTest.json");
+            var json = File.ReadAllText(TestSettings.DataDirPath + _unsuccessfulQuery);
 
             return JsonParser.DeserializeJsonToObjects<SearchModel>(json);
         }

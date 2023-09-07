@@ -6,7 +6,7 @@ using TAF.Web.Pages;
 
 namespace TAF.Tests
 {
-    public abstract class BaseTest
+    public class BaseTest
     {
         private MainPage _mainPage;
         public TestContext TestContext { get; set; }
@@ -18,7 +18,7 @@ namespace TAF.Tests
         }
 
         [SetUp]
-        public virtual void BeforeTest()
+        public void BeforeTest()
         {
             _mainPage = new();
 
@@ -30,14 +30,14 @@ namespace TAF.Tests
         }
 
         [TearDown]
-        public virtual void CleanTest()
+        public void CleanTest()
         {
             if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
                 Logger.Info("Test is failed");
             }
             Logger.Info("Test finish");
-            Browser.NewBrowser.Close();
+            Browser.CloseBrowser();
         }
     }
 }

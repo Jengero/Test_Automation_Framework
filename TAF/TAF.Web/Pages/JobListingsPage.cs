@@ -14,11 +14,9 @@ namespace TAF.Web.Pages
 
         public HtmlElement FirstSearchResultDescription => new(By.XPath("//*[contains(@class,'description body-text')][1]"));
 
-        public HtmlElement ResultDescription => new(By.XPath("//*[@class='search-result__heading-23 heading-1']"));
+        public HtmlElement SkillsField => new(By.XPath("//*[@class='os-content' and contains(@style, 'auto')]"));
 
-        public HtmlElement SkillsFieldUp => new(By.XPath("//*[contains(@style, 'overflow-y')]"));
-
-        public HtmlElement SkillsFieldDown => new(By.XPath("//*[contains(@class, 'os-host-scrollbar-horizontal')]"));
+        public HtmlElement SearchResultQuantityMessage => new(By.XPath("//*[@class='search-result__heading-23 heading-1']"));
 
         public ElementsList<BaseElements> ListOfCountries => new(By.XPath("//*[@class = 'select2-results__group']"));
 
