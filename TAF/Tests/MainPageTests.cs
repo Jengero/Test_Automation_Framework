@@ -41,7 +41,7 @@ namespace TAF.Tests
         }
         
         [Test]
-        public void JoinOutTeemButtonOnCareersDropDownHeaderTest()
+        public void JoinOurTeemButtonOnCareersDropDownHeaderTest()
         {
             Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
 

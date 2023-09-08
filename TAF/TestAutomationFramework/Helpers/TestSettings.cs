@@ -1,6 +1,7 @@
 ﻿using TAF.Core.Utilities;
 using TAF.Core.Enums;
 using NUnit.Framework;
+using System.Reflection;
 
 namespace TAF.Helper
 {
@@ -18,5 +19,8 @@ namespace TAF.Helper
 
         public static string ApplicationUrl => TestContext.Parameters.Get("ApplicationUrl").ToString();
 
+        public static string DataDirPath => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, @"..\..\..\..\TestData\TestDataFiles\");
+        //Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TAF\\TestData\\TestDataFiles");
+        //Directory.GetCurrentDirectory()
     }
 }

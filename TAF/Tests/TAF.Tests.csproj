@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
@@ -18,13 +19,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Selenium.WebDriver" Version="4.12.2" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.12.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TAF.Utilities\TAF.Utilities.csproj" />
     <ProjectReference Include="..\TAF.Web\TAF.Web.csproj" />
     <ProjectReference Include="..\TestAutomationFramework\TAF.Core.csproj" />
+    <ProjectReference Include="..\TestData\TestData.csproj" />
   </ItemGroup>
 
 </Project>
