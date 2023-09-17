@@ -7,5 +7,6 @@
 		<Parameter name ="WebDriverTimeOut" value="60" />
 		<Parameter name ="WaitElementTimeOut" value="80" />
 		<Parameter name ="LogsPath" value="Logs\Logs.txt" />
+		<Parameter name ="TestDataFolder" value="TestDataFiels"/>
 	</TestRunParameters>
 </RunSettings>
