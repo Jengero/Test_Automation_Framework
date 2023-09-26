@@ -9,6 +9,8 @@ namespace TAF.Core.Browser
         {
             var chromeOptions = new ChromeOptions();
             chromeOptions.AddArgument("--start-maximized");
+            chromeOptions.AddArgument("Headless");
+            chromeOptions.AddArgument("window-size=1920,1080");
             var service = ChromeDriverService.CreateDefaultService();
             var chromeDriver = new ChromeDriver(service, chromeOptions, TimeSpan.FromMinutes(3));
             return chromeDriver;

@@ -17,6 +17,7 @@ namespace TAF.Core.Browser
             get => _driver.Url;
             set => _driver.Url = value;
         }
+        public IWebDriver Driver => _driver; 
 
         public static Browser NewBrowser
         {
@@ -55,7 +56,7 @@ namespace TAF.Core.Browser
 
         public string GetUrl()
         {
-            Logger.Info("Navigate to Url");
+            Logger.Info("Return current Url");
             return _driver.Url;
         }
 
@@ -71,7 +72,7 @@ namespace TAF.Core.Browser
             _driver.Navigate().Refresh();
         }
 
-        public void GotToUrl(string url)
+        public void GoToUrl(string url)
         {
             Logger.Info($"Open url: {url}");
             _driver.Navigate().GoToUrl(url);
@@ -81,6 +82,11 @@ namespace TAF.Core.Browser
         {
             Logger.Info("Scroll page top");
             ExecuteScript("$(window).scrollTop(0)");
+        }
+      
+        public void ScrollToElement(IWebElement element)
+        {
+            ExecuteScript("arguments[0].scrollIntoView(true);", element);
         }
 
         public void Close()

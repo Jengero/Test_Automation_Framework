@@ -4,16 +4,22 @@ using TAF.Utilities.Logger;
 
 namespace TAF.Core.Elements
 {
-    public abstract class BaseElements : IBaseElements
+    public class BaseElements : IBaseElements
     {
         private readonly IWebElement _element;
 
-        protected BaseElements(By locator)
+        public BaseElements()
+        {
+            
+        }
+
+        public BaseElements(By locator)
         {
             _element = Browser.Browser.NewBrowser.FindElement(locator);
         }
 
-        protected BaseElements(IWebElement element)
+
+        public BaseElements(IWebElement element)
         {
             _element = element;
         }
@@ -24,6 +30,7 @@ namespace TAF.Core.Elements
 
         public string GetAttribute(string attributeName) => OriginalWebElement.GetAttribute(attributeName);
 
+        public string GetProperty(string propertyName) => OriginalWebElement.GetDomProperty(propertyName);
 
         public virtual void Click()
         {

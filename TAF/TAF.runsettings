@@ -4,8 +4,8 @@
 	<TestRunParameters>
 		<Parameter name ="Browser" value="Chrome" />
 		<Parameter name ="ApplicationUrl" value="https://www.epam.com/"/>
-		<Parameter name ="WebDriverTimeOut" value="30" />
-		<Parameter name ="WaitElementTimeOut" value="40" />
+		<Parameter name ="WebDriverTimeOut" value="60" />
+		<Parameter name ="WaitElementTimeOut" value="80" />
 		<Parameter name ="LogsPath" value="Logs\Logs.txt" />
 	</TestRunParameters>
 </RunSettings>

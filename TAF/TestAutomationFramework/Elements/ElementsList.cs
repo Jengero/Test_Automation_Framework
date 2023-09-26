@@ -10,15 +10,15 @@ namespace TAF.Core.Elements
         private readonly By _locator;
         private readonly IWebElement _element;
 
-        public ElementsList(By locator)
+        public ElementsList(By locator) 
         {
-            this._locator = locator; 
+
+            this._locator = locator;
         }
 
-        public ElementsList(IWebElement element)
+        public ElementsList(IWebElement element) 
         {
             this._element = element;
-
         }
 
         public List<T> GetElements()
@@ -33,13 +33,13 @@ namespace TAF.Core.Elements
             return _elements.Select(func).ToList();
         }
 
-        private void UpdateElements()
+        private void UpdateElements ()
         {
             if (_elements.ToList().Count != 0) return;
-            var findedElements = FindElements(_locator);
-            foreach (var findedElement in findedElements)
+            var foundElements = FindElements(_locator);
+            foreach (var foundElement in foundElements)
             {
-                var elementInstance = (T)Activator.CreateInstance(typeof(T), findedElement);
+                var elementInstance = (T)Activator.CreateInstance(typeof(T), foundElement);
                 _elements.Add(elementInstance);
             }
         }
