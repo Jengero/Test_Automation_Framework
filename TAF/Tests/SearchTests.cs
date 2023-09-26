@@ -6,6 +6,7 @@ using TAF.Utilities.Parser;
 using TAF.Web.Pages;
 using TestData;
 
+
 namespace TAF.Tests
 {
     [TestFixture]
@@ -30,6 +31,7 @@ namespace TAF.Tests
         }
 
         [NonParallelizable]
+
         [TestCase("Business Analysis")]
         public void SearchPanelResultIsCorrectTest(string expectedSearchResult)
         {
