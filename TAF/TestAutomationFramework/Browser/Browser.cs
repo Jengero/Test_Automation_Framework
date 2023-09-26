@@ -83,6 +83,7 @@ namespace TAF.Core.Browser
             Logger.Info("Scroll page top");
             ExecuteScript("$(window).scrollTop(0)");
         }
+      
         public void ScrollToElement(IWebElement element)
         {
             ExecuteScript("arguments[0].scrollIntoView(true);", element);
@@ -121,7 +122,9 @@ namespace TAF.Core.Browser
 
         #region Waiters
         public WebDriverWait Waiters() => new (_driver, TestSettings.WebDriverTimeOut);
+
         public Actions Action => new(_driver);
+
         public void ImplicitWaiter(int waitInSeconds) => _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(waitInSeconds);
         #endregion
 

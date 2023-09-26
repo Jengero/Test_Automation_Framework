@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 
 namespace TAF.Core.Elements
 {
+
     public class ElementsList<T>
     {
         private readonly List<T> _elements = new List<T>();
@@ -13,7 +14,6 @@ namespace TAF.Core.Elements
         {
 
             this._locator = locator;
-            
         }
 
         public ElementsList(IWebElement element) 
