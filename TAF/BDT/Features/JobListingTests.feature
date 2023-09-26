@@ -4,14 +4,13 @@ In order to find suitable vacancies
 I want to use filters on the Job listings page
 
 Background: Setup before tests
-Given setup page objects for job listing tests
-And navigation to epam.com page
-And accept all cookies
+Given navigation to EPAM Landing page
+And I accept all cookies
 
-@tag1
-Scenario: Check vacancies with relocation
-	Given I navigate to Careers button
-	And I click to Join Our Team button
-	When I click to Open to Relocate button
+@Smoke
+Scenario: Job Listing - Filtering Panel - Check vacancies with relocation
+	Given I open Careers dropdown on Epam Landing page
+	And I click on Join Our Team button on Careers dropdown on Epam Landing page
+	When I click on Open to Relocate checkbox on Join our Team page
 	And I scroll for more results
 	Then All 20 vacancies contains Open to Relocate icon

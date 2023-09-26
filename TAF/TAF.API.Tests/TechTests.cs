@@ -15,7 +15,7 @@ namespace TAF.API.Tests
         {
             var response = new TechController(new CustomRestClient()).GetTechItems<RestResponse>();
 
-            Assert.That(response.Response.StatusCode, Is.EqualTo(HttpStatusCode.OK), $"Invalid status code ({response.Response.StatusCode})");
+            Assert.That(response.Response.StatusCode, Is.EqualTo(HttpStatusCode.OK), "Invalid response status code from https://api.restful-api.dev/objects");
         }
 
         [Test]
@@ -23,7 +23,7 @@ namespace TAF.API.Tests
         {
             var response = new TechController(new CustomRestClient()).GetTechItems<List<TechItemSingleResponseModel>>();
 
-            CollectionAssert.IsNotEmpty(response.Tech, "Any object should be returned");
+            CollectionAssert.IsNotEmpty(response.Tech, "No objects from https://api.restful-api.dev/objects/{id} were returned");
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace TAF.API.Tests
             var currentIdNumber = 13;
             var response = new TechController(new CustomRestClient()).GetTechItems<List<TechItemSingleResponseModel>>().Tech.Select(f => f.Id);
 
-            Assert.That(response.Count, Is.EqualTo(currentIdNumber), $"The number of objects is not equal");
+            Assert.That(response.Count, Is.EqualTo(currentIdNumber), "The number of tech items returned from resource https://api.restful-api.dev/objects is invalid!");
         }
 
         [Test]
@@ -56,7 +56,11 @@ namespace TAF.API.Tests
 
             var itemDeletion = new TechController(new CustomRestClient()).DeleteCreatedItem<TechItemDeleteResponseModel>(createdItem.Id).Tech;
 
-            Assert.That(receivedItem.Data.CapacityGB, Is.EqualTo(capacity), "Values should match");
+            var deletedItem = new TechController(new CustomRestClient()).GetSingleTechItem<TechItemSingleResponseModel>(createdItem.Id).Tech;
+
+            Assert.That(deletedItem.Id, Is.Null, "Deleted item ID from https://api.restful-api.dev/objects is not Null");
+
+            Assert.That(receivedItem.Data.CapacityGB, Is.EqualTo(capacity), "Post request from https://api.restful-api.dev/objects returned incorrect data");
         }
 
         [Test]
@@ -81,7 +85,7 @@ namespace TAF.API.Tests
 
             var deletedItem = new TechController(new CustomRestClient()).GetSingleTechItem<TechItemSingleResponseModel>(createdItem.Id).Tech;
 
-            Assert.That(deletedItem.Id, Is.Null, "Item should be deleted");
+            Assert.That(deletedItem.Id, Is.Null, "Deleted item ID from https://api.restful-api.dev/objects is not Null");
         }
 
         [Test]
@@ -117,7 +121,11 @@ namespace TAF.API.Tests
 
             var itemDeletion = new TechController(new CustomRestClient()).DeleteCreatedItem<TechItemDeleteResponseModel>(createdItem.Id).Tech;
 
-            Assert.That(patchedItem.Data.Price, Is.EqualTo(price), "Updated value should match");
+            var deletedItem = new TechController(new CustomRestClient()).GetSingleTechItem<TechItemSingleResponseModel>(createdItem.Id).Tech;
+
+            Assert.That(deletedItem.Id, Is.Null, "Deleted item ID from https://api.restful-api.dev/objects is not Null");
+
+            Assert.That(patchedItem.Data.Price, Is.EqualTo(price), "Put request from https://api.restful-api.dev/objects returned incorrect data");
         }
 
         [Test]
@@ -151,7 +159,11 @@ namespace TAF.API.Tests
 
             var itemDeletion = new TechController(new CustomRestClient()).DeleteCreatedItem<TechItemDeleteResponseModel>(createdItem.Id).Tech;
 
-            Assert.That(patchedItem.Data.Price, Is.EqualTo(newPrice), "Updated value should match");
+            var deletedItem = new TechController(new CustomRestClient()).GetSingleTechItem<TechItemSingleResponseModel>(createdItem.Id).Tech;
+
+            Assert.That(deletedItem.Id, Is.Null, "Deleted item ID from https://api.restful-api.dev/objects is not Null");
+
+            Assert.That(patchedItem.Data.Price, Is.EqualTo(newPrice), "Path request from https://api.restful-api.dev/objects returned incorrect data");
         }
     }
 }
