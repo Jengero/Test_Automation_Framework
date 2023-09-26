@@ -26,7 +26,7 @@ namespace TAF.Tests
             _mainPage.Header.CareersButton.Click();
             _careersPage.FindYourDreamJobButton.Click();
             Browser.NewBrowser.ScrollToElement(_jobListingsPage.ThirteenthSearchResult.OriginalWebElement);
-            
+
             CollectionAssert.AreEquivalent(expectedCountries, _jobListingsPage.ListOfAvailableLocations.Select(f => f.GetProperty("innerText")), "Countries are not equal");
         }
     }

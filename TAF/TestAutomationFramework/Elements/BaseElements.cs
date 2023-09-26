@@ -18,7 +18,6 @@ namespace TAF.Core.Elements
             _element = Browser.Browser.NewBrowser.FindElement(locator);
         }
 
-
         public BaseElements(IWebElement element)
         {
             _element = element;

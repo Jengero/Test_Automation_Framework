@@ -3,7 +3,6 @@ using OpenQA.Selenium;
 
 namespace TAF.Core.Elements
 {
-
     public class ElementsList<T>
     {
         private readonly List<T> _elements = new List<T>();

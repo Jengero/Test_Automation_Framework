@@ -83,7 +83,7 @@ namespace TAF.Core.Browser
             Logger.Info("Scroll page top");
             ExecuteScript("$(window).scrollTop(0)");
         }
-      
+
         public void ScrollToElement(IWebElement element)
         {
             ExecuteScript("arguments[0].scrollIntoView(true);", element);
