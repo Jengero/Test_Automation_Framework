@@ -13,7 +13,6 @@ namespace TAF.Core.Elements
         {
 
             this._locator = locator;
-            
         }
 
         public ElementsList(IWebElement element) 

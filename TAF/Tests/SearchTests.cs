@@ -78,7 +78,7 @@ namespace TAF.Tests
             _mainPage.Header.SearchForm.SendKeys(searchQuery);
             _mainPage.Header.FindResultButton.Click();
 
-            Browser.NewBrowser.ScrollToElement(_searchResultsPage.ListOfArticles.GetElements()[9].OriginalWebElement);
+            Browser.NewBrowser.ScrollToElement(_searchResultsPage.ListOfArticles.GetElements().Last().OriginalWebElement);
 
             Waiters.WaitForCondition(() => _searchResultsPage.ViewMoreButton.IsDisplayed());
 
