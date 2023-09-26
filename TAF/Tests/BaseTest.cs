@@ -6,7 +6,6 @@ using TAF.Web.Pages;
 
 namespace TAF.Tests
 {
-
     public class BaseTest
     {
         private MainPage _mainPage;

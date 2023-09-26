@@ -1,11 +1,11 @@
 ﻿using TAF.Core.Browser;
 using TAF.Core.Elements;
+using TAF.Core.Helpers;
 using TAF.Core.Utilities;
 using TAF.Helper;
 using TAF.Utilities.Parser;
 using TAF.Web.Pages;
 using TestData;
-
 
 namespace TAF.Tests
 {
@@ -31,7 +31,6 @@ namespace TAF.Tests
         }
 
         [NonParallelizable]
-
         [TestCase("Business Analysis")]
         public void SearchPanelResultIsCorrectTest(string expectedSearchResult)
         {
@@ -92,9 +91,9 @@ namespace TAF.Tests
         [TestCaseSource(nameof(GetKeywordData))]
         public void KeywordQueryJobListingsPageTest(SearchModel searchModel)
         {
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
+            ActionsHelper.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).PerformAction();
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
+            ActionsHelper.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().PerformAction();
 
             var defaultSearchMessage = _jobListingsPage.SearchResultQuantityMessage.GetText();
 
@@ -105,13 +104,14 @@ namespace TAF.Tests
             Assert.That(_jobListingsPage.FirstSearchResultDescription.GetText().ToLower(), Is.EqualTo(searchModel.SearchResult.ToLower()), "Descriptions of the first result don't match (keyword)");
         }
 
+        [NonParallelizable]
         [Test]
         [TestCaseSource(nameof(GetLocationData))]
         public void LocationFieldJobListingsPageTest(SearchModel searchModel)
         {
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
+            ActionsHelper.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).PerformAction();
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
+            ActionsHelper.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().PerformAction();
 
             var defaultSearchMessage = _jobListingsPage.SearchResultQuantityMessage.GetText();
 
@@ -127,9 +127,9 @@ namespace TAF.Tests
         [TestCaseSource(nameof(GetSkillsData))]
         public void SkillsFieldJobListingsPageTest(SearchModel searchModel)
         {
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
+            ActionsHelper.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).PerformAction();
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
+            ActionsHelper.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().PerformAction();
 
             var defaultSearchMessage = _jobListingsPage.SearchResultQuantityMessage.GetText();
 
@@ -145,9 +145,9 @@ namespace TAF.Tests
         [TestCaseSource(nameof(GetAllFieldsData))]
         public void SearchQueryWithAllFieldsFilledInJobListingsPageTest(SearchModel searchModel )
         {
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
+            ActionsHelper.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).PerformAction();
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
+            ActionsHelper.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().PerformAction();
 
             var defaultSearchMessage = _jobListingsPage.SearchResultQuantityMessage.GetText();
 
@@ -171,9 +171,9 @@ namespace TAF.Tests
         [TestCaseSource(nameof(GetUnsuccessfullQueryData))]
         public void UnsuccessfulSearchJobListingsPageTest(SearchModel searchModel)
         {
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
+            ActionsHelper.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).PerformAction();
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
+            ActionsHelper.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().PerformAction();
 
             var defaultSearchMessage = _jobListingsPage.SearchResultQuantityMessage.GetText();
 

@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium.Interactions;
 using TAF.Core.Browser;
+using TAF.Core.Helpers;
 using TAF.Core.Utilities;
 using TAF.Web.Pages;
 
@@ -41,13 +42,13 @@ namespace TAF.Tests
         }
         
         [Test]
-        public void JoinOutTeemButtonOnCareersDropDownHeaderTest()
+        public void JoinOurTeemButtonOnCareersDropDownHeaderTest()
         {
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
+            ActionsHelper.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).PerformAction();
 
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
 
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
+            ActionsHelper.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().PerformAction();
             
             Assert.That(Browser.NewBrowser.Url, Is.EqualTo(_jobListingsPage.Url), "Loaded incorrect page");
         }

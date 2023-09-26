@@ -26,6 +26,8 @@ namespace TAF.Web.Pages
 
         public ElementsList<BaseElements> ListOfCities => new(By.XPath("//*[@class= 'select2-results__option' and contains(@id, 'location-result')]"));
 
+        public ElementsList<BaseElements> ListOfOpenToRelocateVacancies => new(By.XPath("//*[@class= 'search-result__item']"));
+
         public TextInput KeywordJobInput => new(By.Id("new_form_job_search-keyword"));
 
         public TextInput LocationInput => new(By.XPath("//* [@class = 'select2-selection__rendered']"));
@@ -35,5 +37,7 @@ namespace TAF.Web.Pages
         public Button SubmitSearchButton => new(By.XPath("//button [@type = 'submit']"));
 
         public Button SkillsDropDownButton => new(By.XPath("//*[@class = 'default-label']"));
+
+        public Button OpenToRelocateButton => new(By.XPath("//label [contains (@for, 'relocation')]"));
     }
 }
