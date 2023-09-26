@@ -88,11 +88,11 @@ testRunner.And("I accept all cookies", ((string)(null)), ((TechTalk.SpecFlow.Tab
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Job Listing - Filtering Panel - Check vacancies with relocation")]
-        [NUnit.Framework.CategoryAttribute("tag1")]
+        [NUnit.Framework.CategoryAttribute("Smoke")]
         public void JobListing_FilteringPanel_CheckVacanciesWithRelocation()
         {
             string[] tagsOfScenario = new string[] {
-                    "tag1"};
+                    "Smoke"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Job Listing - Filtering Panel - Check vacancies with relocation", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 11

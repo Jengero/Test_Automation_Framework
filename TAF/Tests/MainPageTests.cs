@@ -38,7 +38,7 @@ namespace TAF.Tests
             Browser.NewBrowser.Refresh();
             Browser.NewBrowser.Back();
 
-            Assert.That(Browser.NewBrowser.Url, Is.EqualTo(_careersPage.Url), "Pages don't match");
+            Assert.That(Browser.NewBrowser.GetUrl(), Is.EqualTo(_careersPage.Url), "Pages don't match");
         }
         
         [Test]
@@ -49,8 +49,8 @@ namespace TAF.Tests
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
 
             ActionsHelper.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().PerformAction();
-            
-            Assert.That(Browser.NewBrowser.Url, Is.EqualTo(_jobListingsPage.Url), "Loaded incorrect page");
+
+            Assert.That(Browser.NewBrowser.GetUrl(), Is.EqualTo(_jobListingsPage.Url), "Loaded incorrect page");
         }
         
         [Test]

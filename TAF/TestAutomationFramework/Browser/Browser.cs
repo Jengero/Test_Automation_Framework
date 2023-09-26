@@ -12,13 +12,6 @@ namespace TAF.Core.Browser
         private readonly IWebDriver _driver;
         private static ThreadLocal<Browser> _browser;
 
-        public string Url
-        {
-            get => _driver.Url;
-            set => _driver.Url = value;
-        }
-        public IWebDriver Driver => _driver; 
-
         public static Browser NewBrowser
         {
             get
@@ -58,12 +51,6 @@ namespace TAF.Core.Browser
         {
             Logger.Info("Return current Url");
             return _driver.Url;
-        }
-
-        public void Maximize()
-        {
-            Logger.Info("Maximize Browser");
-            _driver.Manage().Window.Maximize();
         }
 
         public void Refresh()
@@ -123,10 +110,10 @@ namespace TAF.Core.Browser
         #region Waiters
         public WebDriverWait Waiters() => new (_driver, TestSettings.WebDriverTimeOut);
 
-        public Actions Action => new(_driver);
-
         public void ImplicitWaiter(int waitInSeconds) => _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(waitInSeconds);
         #endregion
+
+        public Actions Action => new(_driver);
 
         public object ExecuteScript(string script, params object[] args)
         {

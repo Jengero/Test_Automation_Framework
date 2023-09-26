@@ -1,6 +1,6 @@
 ﻿using RestSharp;
 using System.Globalization;
-using TAF.API.Models.ResponseModels;
+using TAF.API.Models.ResponseModels.Bibles;
 
 namespace TAF.API.Controllers
 {

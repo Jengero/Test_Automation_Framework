@@ -1,8 +1,6 @@
 ﻿using OpenQA.Selenium;
 using System.Collections.ObjectModel;
 using TAF.Core.Browser;
-using TAF.Core.Elements;
-using TAF.Core.Utilities;
 
 namespace TAF.Web.Pages
 {

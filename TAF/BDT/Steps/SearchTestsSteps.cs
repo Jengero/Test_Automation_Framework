@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using TAF.Core.Browser;
 using TAF.Core.Helpers;
-//using TAF.Core.Helpers;
 using TAF.Core.Utilities;
 using TAF.Web.Pages;
 
@@ -24,6 +23,7 @@ namespace TAF.Tests.BDT.Steps
         [Given(@"I enter search query \(""([^""]*)""\)")]
         public void WhenIEnterSearchQuery(string query)
         {
+            Waiters.WaitForCondition(_mainPage.Header.SearchForm.IsDisplayed);
             _mainPage.Header.SearchForm.SendKeys(query);
             searchQuery = query;
         }

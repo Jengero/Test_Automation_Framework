@@ -24,7 +24,7 @@ namespace TAF.Web.Pages
 
         public ElementsList<BaseElements> ListOfSkills => new(By.XPath("//*[@class = 'checkbox-custom-label']"));
 
-        public ElementsList<BaseElements> ListOfCities => new(By.XPath("//*[@class= 'select2-results__option' and contains(@id, 'location-result')]"));
+        public ElementsList<BaseElements> ListOfCities => new(By.XPath("//*[contains(@id, '-location-result-')]"));
 
         public ElementsList<BaseElements> ListOfOpenToRelocateVacancies => new(By.XPath("//*[@class= 'search-result__item']"));
 

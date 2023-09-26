@@ -1,8 +1,7 @@
 ﻿using RestSharp;
 using System.Net;
 using TAF.API.Controllers;
-using TAF.API.Models.ResponceModels;
-using TAF.API.Models.ResponseModels;
+using TAF.API.Models.ResponseModels.Bibles;
 
 namespace TAF.API.Tests
 {
