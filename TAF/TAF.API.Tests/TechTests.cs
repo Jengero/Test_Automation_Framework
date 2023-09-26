@@ -13,7 +13,7 @@ namespace TAF.API.Tests
         {
             var response = new TechController(new CustomRestClient()).GetTech<RestResponse>();
 
-            Assert.That(response.response.StatusCode, Is.EqualTo(HttpStatusCode.OK), $"Invalid status code ({response.response.StatusCode})");
+            Assert.That(response.response.StatusCode, Is.EqualTo(HttpStatusCode.OK), "Invalid response status code from https://api.restful-api.dev/objects");
         }
 
         [Test]
@@ -21,7 +21,7 @@ namespace TAF.API.Tests
         {
             var response = new TechController(new CustomRestClient()).GetTech<List<AllObjectsModel>>();
 
-            CollectionAssert.IsNotEmpty(response.Tech, "Any object should be returned");
+            CollectionAssert.IsNotEmpty(response.Tech, "No objects from https://api.restful-api.dev/objects/{id} were returned");
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace TAF.API.Tests
             var currentIdNumber = 13;
             var response = new TechController(new CustomRestClient()).GetTech<List<AllObjectsModel>>().Tech.Select(f => f.id);
 
-            Assert.That(response.Count, Is.EqualTo(currentIdNumber), $"The number of objects is not equal");
+            Assert.That(response.Count, Is.EqualTo(currentIdNumber), "The number of tech items returned from resource https://api.restful-api.dev/objects is invalid!");
         }
     }
 }
