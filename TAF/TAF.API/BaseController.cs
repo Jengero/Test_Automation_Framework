@@ -70,7 +70,6 @@ namespace TAF.API
                 ? (response, default)
                 : (response, GetDeserializedView<T>(response));
         }
-
         private T GetDeserializedView<T>(RestResponse response)
         {
             return JsonConvert.DeserializeObject<T>(response.Content);

@@ -9,9 +9,9 @@ namespace TAF.Core.Helpers
 
         public static Actions MoveToElement(IWebElement element) => Browser.Browser.NewBrowser.Action.MoveToElement(element);
 
-        public static void PerformAction(this Actions action) 
+        public static void PerformAction(this Actions actions) 
         {
-         action.Build().Perform();
+         actions.Build().Perform();
         }
     }
 }
