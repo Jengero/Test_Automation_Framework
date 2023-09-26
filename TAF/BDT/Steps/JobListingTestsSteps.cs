@@ -1,40 +1,33 @@
 ﻿using NUnit.Framework;
 using TAF.Core.Browser;
+using TAF.Core.Helpers;
 using TAF.Core.Utilities;
 using TAF.Web.Pages;
 
 namespace TAF.Tests.BDT.Steps
 {
     [Binding]
-
     public class JobListingTestsSteps
     {
-        private MainPage _mainPage;
-        private JobListingsPage _jobListingsPage;
+        private MainPage _mainPage => new();
+        private JobListingsPage _jobListingsPage => new();
         private string defaultSearchMessage;
 
-        [Given(@"setup page objects for job listing tests")]
-        public void GivenSetupPageObjectsForJobListingTests()
+        [Given(@"I open Careers dropdown on Epam Landing page")]
+        public void GivenIOpenCareersDropdownOnEpamLandingPage()
         {
-            _mainPage = new();
-            _jobListingsPage = new();
+            ActionsHelper.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).PerformAction();
         }
 
-        [Given(@"I navigate to Careers button")]
-        public void GivenINavigateToCareersButton()
-        {
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.CareersButton.OriginalWebElement).Build().Perform();
-        }
-
-        [Given(@"I click to Join Our Team button")]
-        public void GivenIClickToJoinOurTeamButton()
+        [Given(@"I click on Join Our Team button on Careers dropdown on Epam Landing page")]
+        public void GivenIClickOnJoinOurTeamButtonOnCareersDropdownOnEpamLandingPage()
         {
             Waiters.WaitForCondition(new Func<bool>(() => _mainPage.Header.JoinOurTeamOnCareersDropDown.IsDisplayed()));
-            Browser.NewBrowser.Action.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().Build().Perform();
+            ActionsHelper.MoveToElement(_mainPage.Header.JoinOurTeamOnCareersDropDown.OriginalWebElement).Click().PerformAction();
         }
 
-        [When(@"I click to Open to Relocate button")]
-        public void WhenIClickToOpenToRelocateButton()
+        [When(@"I click on Open to Relocate checkbox on Join our Team page")]
+        public void WhenIClickOnOpenToRelocateCheckboxOnJoinOurTeamPage()
         {
             defaultSearchMessage = _jobListingsPage.SearchResultQuantityMessage.GetText();
             _jobListingsPage.OpenToRelocateButton.Click();
